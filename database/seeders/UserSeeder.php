@@ -25,6 +25,17 @@ class UserSeeder extends Seeder
 
        $admin->roles()->attach(1);
 
+        $admin = User::create([
+            'first_name' => 'Zafar',
+            'last_name' => 'Qobilov',
+            'email' => 'zafarqobilov@gmail.com',
+            'phone' => '+998900123456',
+            'password' => Hash::make('secret123'),
+        ]);
+
+        $admin->roles()->attach(2);
+
+
        User::factory()->count(10)->hasAttached([Role::find(2)])->create();
     }
 }

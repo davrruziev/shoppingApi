@@ -7,16 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
 
-class Category extends Model
+class DeliveryMethod extends Model
 {
     use HasFactory, HasTranslations, SoftDeletes;
 
-    protected $fillable = ['name', 'icon', 'order'];
+    protected $fillable = [
+        'name',
+        'estimated_time',
+        'sum',
+    ];
 
-    public $translatable = ['name'];
+    public $translatable = ["name", "estimated_time"];
 
-    public function products()
+    public function orders()
     {
-       return $this->hasMany(Product::class);
+        return $this->belongsTo(Order::class);
     }
 }
