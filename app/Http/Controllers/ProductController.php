@@ -6,12 +6,24 @@ use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Repositories\Interfaces\ProductRepositoryInterface;
 
 class ProductController extends Controller
 {
+    public $productRepository;
+
+    public function __construct
+    (
+        ProductRepositoryInterface $productRepository
+    )
+    {
+        $this->productRepository = $productRepository;
+
+    }
+
     public function index()
     {
-        return ProductResource::collection(Product::cursorPaginate(25));
+        return ProductResource::collection($this->productRepository->getProducts());
     }
 
     public function store(StoreProductRequest $request)
@@ -21,7 +33,7 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        return  new ProductResource(Product::where('id', $product->id)->first());
+        return  new ProductResource($this->productRepository->getProductId($product));
 
     }
 

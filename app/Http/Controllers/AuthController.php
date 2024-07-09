@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -20,10 +21,7 @@ class AuthController extends Controller
             ]);
         }
 
-        return response()->json([
-            'Token' => $user->createToken($request->email)->plainTextToken
-        ]);
-
+        return  $this->success('', ['Token' => $user->createToken($request->email)->plainTextToken]);
     }
 
     public function register(Request $request)
@@ -38,6 +36,6 @@ class AuthController extends Controller
 
     public function user(Request $request)
     {
-        return $request->user();
+        return $this->response(new UserResource($request->user()));
     }
 }

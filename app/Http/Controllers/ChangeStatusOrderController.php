@@ -17,9 +17,6 @@ class ChangeStatusOrderController extends Controller
 
            $order->update(['status_id' => $status->id]);
 
-           return response([
-                 'success' => true,
-               'message' => 'status changed'
-           ]);
+           return $this->success('status changed');
     }
 }

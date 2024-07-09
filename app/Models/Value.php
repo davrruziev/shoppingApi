@@ -10,12 +10,17 @@ class Value extends Model
 {
     use HasFactory, HasTranslations;
 
-    protected $fillable = ["name", 'attribute_id'];
+    protected $fillable = ["name"];
 
     public array $translatable = ["name"];
 
-    public function attribute()
+    public function valueable()
     {
-        return $this->belongsTo(Attribute::class);
+        return $this->morphTo();
+    }
+
+    public function user_settings()
+    {
+        return $this->hasMany(UserSetting::class);
     }
 }

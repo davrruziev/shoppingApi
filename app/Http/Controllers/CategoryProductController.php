@@ -3,12 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use Illuminate\Http\Request;
+use App\Repositories\Interfaces\CategoryRepositoryInterface;
 
 class CategoryProductController extends Controller
 {
+    public $categoryRepository;
+
+    public function __construct
+    (
+        CategoryRepositoryInterface $categoryRepository
+    )
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
+
     public function index(Category $category)
     {
-        return Category::with('products')->where('id', $category->id)->get();
+        return $this->categoryRepository->CategoryProduct($category);
     }
 }
