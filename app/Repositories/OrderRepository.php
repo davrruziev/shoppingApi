@@ -33,4 +33,9 @@ class OrderRepository implements OrderRepositoryInterface
 
     }
 
+    public function StocksOrders($products)
+    {
+        // TODO: Implement StocksOrders() method.
+    }
+
 }

@@ -25,6 +25,7 @@ class OrderController extends Controller
         $this->orderRepository = $orderRepository;
         $this->orderService = $orderService;
         $this->middleware('auth:sanctum');
+        $this->authorizeResource(Order::class, 'order');
     }
 
     public function index(Request $request)
@@ -83,6 +84,7 @@ class OrderController extends Controller
 
     public function destroy(Order $order)
     {
-        //
+        $order->delete();
+        return 1;
     }
 }
