@@ -2,17 +2,16 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreProductRequest extends FormRequest
+class StorePhotoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return request()->user()->can('product:create');
+        return false;
     }
 
     /**
@@ -23,10 +22,7 @@ class StoreProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "category_id" => 'required',
-            "name" => "required",
-            "description" => "required",
-            "price" => "required",
+            //
         ];
     }
 }

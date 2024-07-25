@@ -5,11 +5,13 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryProductController;
 use App\Http\Controllers\ChangeStatusOrderController;
 use App\Http\Controllers\DeliveryMethodController;
+use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentCardTypeController;
 use App\Http\Controllers\PaymentTypeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductPhotoController;
 use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SettingController;
@@ -55,4 +57,6 @@ Route::apiResources([
     'user-settings' => UserSettingController::class,
     'payment-card-types' => PaymentCardTypeController::class,
     'user-payment-cards' => UserPaymentCardController::class,
+    'products.photos' => ProductPhotoController::class,
+    'discounts' => DiscountController::class,
 ]);

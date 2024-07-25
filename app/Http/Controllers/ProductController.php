@@ -7,6 +7,8 @@ use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -18,6 +20,7 @@ class ProductController extends Controller
     )
     {
         $this->productRepository = $productRepository;
+        $this->middleware('auth:sanctum');
 
     }
 
@@ -28,7 +31,9 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
-        //
+        $product = Product::create($request->toArray());
+
+        return $this->success('product created', new ProductResource($product));
     }
 
     public function show(Product $product)
@@ -44,7 +49,13 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        //
+        Gate::authorize('product:delete');
+
+        Storage::delete($product->photos()->pluck('path')->toArray());
+        $product->photos()->delete();
+        $product->delete();
+
+        return $this->success('product deleted');
     }
 
     public function related(Product $product)
